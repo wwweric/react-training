@@ -1,9 +1,62 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
+  const [cats, setCats] = useState();
+  useEffect(() => {
+    (async() => {
+      const res = await fetch('/api/hello');
+      const data = await res.json();
+      setCats(data.cats);
+    })()
+  },[])
+  console.log(cats);
+
+
+
+  const array = ['a','b','c'];
+  // console.log();
+  // array.map((value)=>{
+  //   console.log(value);
+  // });
+
+  const sexTexts = {
+    1: '♂',
+    2: '♀',
+  }
+  const momoName:string = 'momo';
+
+  const cats_data:{
+    id:number,
+    name:string,
+    sex: 1|2
+  }[] =[{
+    id:0,
+    name: 'momo',
+    sex: 2
+  },{
+    id:1,
+    name: 'tama',
+    sex: 1
+  },{
+    id:2,
+    name: 'ben',
+    sex: 1
+  }];
+  console.log('catdata',cats_data)
+
+
+  // const _cats = cats.map((cat) => {
+  //   return {
+  //     ...cat,
+  //     sexText: sexTexts[cat.sex]
+  //   }
+  // })
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +69,21 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        {array.map((value, index)=>{
+          // console.log(index,value);
+          return <p key={index}>{value}{index}</p>
+        })}
+
+        {/* {cats_data.map((cat) => (
+          <p key={cat.id}>{cat.name}{cat.sex}</p>
+        ))} */}
+
+        {cats.map((cat) => (
+          <p key={cat.id}>ねこAPI：{cat.name}{cat.sex}</p>
+        ))}
+
+
 
         <p className={styles.description}>
           Get started by editing{' '}
