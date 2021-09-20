@@ -1,4 +1,4 @@
-import { addDoc, collection, getFirestore, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, getDocs, getFirestore, serverTimestamp } from 'firebase/firestore';
 import { Post } from '../../types/post';
 export type Params = {
   title: string;
@@ -21,4 +21,13 @@ export const createPost = async ({ title, body }: Params): Promise<Post> => {
     createAt,
     updateAt,
   };
+};
+
+export const getPosts = async () => {
+  const db = getFirestore();
+  const querySnapshot = await getDocs(collection(db, 'posts'));
+  return querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 };

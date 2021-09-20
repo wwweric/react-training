@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { createPost } from '../firebase/posts';
+import { createPost, getPosts } from '../firebase/posts';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -12,6 +12,8 @@ const Home: NextPage = () => {
       const res = await fetch('/api/hello');
       const data = await res.json();
       setCats(data.cats);
+      const posts = await getPosts();
+      console.log(posts);
     })();
   }, []);
   console.log(cats);
