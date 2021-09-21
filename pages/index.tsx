@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { createPost, getPosts } from '../firebase/posts';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -11,6 +12,8 @@ const Home: NextPage = () => {
       const res = await fetch('/api/hello');
       const data = await res.json();
       setCats(data.cats);
+      const posts = await getPosts();
+      console.log(posts);
     })();
   }, []);
   console.log(cats);
@@ -50,6 +53,13 @@ const Home: NextPage = () => {
   //     sexText: sexTexts[cat.sex]
   //   }
   // })
+  const handleCreatePost = async () => {
+    const post = await createPost({
+      title: 'test',
+      body: 'body',
+    });
+    console.log(post);
+  };
 
   return (
     <div className={styles.container}>
@@ -77,6 +87,8 @@ const Home: NextPage = () => {
         {/* {cats_data.map((cat) => (
           <p key={cat.id}>{cat.name}{cat.sex}</p>
         ))} */}
+
+        <h1 onClick={handleCreatePost}>記事投稿テスト</h1>
 
         <p className={styles.description}>
           Get started by editing <code className={styles.code}>pages/index.js</code>
