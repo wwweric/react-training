@@ -1,14 +1,19 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPost, getPosts } from '../firebase/posts';
 import styles from '../styles/Home.module.css';
 
-const Home: NextPage = () => {
+import { Post } from '../types/post';
+
+const Page: NextPage = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  console.log(posts);
+
   useEffect(() => {
     (async () => {
-      const posts = await getPosts();
-      console.log(posts);
+      const response = await getPosts();
+      setPosts(response);
     })();
   }, []);
 
@@ -39,4 +44,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Page;

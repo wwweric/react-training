@@ -23,11 +23,14 @@ export const createPost = async ({ title, body }: Params): Promise<Post> => {
   };
 };
 
-export const getPosts = async () => {
+export const getPosts = async (): Promise<Post[]> => {
   const db = getFirestore();
   const querySnapshot = await getDocs(collection(db, 'posts'));
-  return querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  }));
+  return querySnapshot.docs.map(
+    (doc) =>
+      ({
+        id: doc.id,
+        ...doc.data(),
+      } as Post),
+  );
 };
