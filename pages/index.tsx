@@ -35,6 +35,9 @@ const Page: NextPage = () => {
 
       <main className={styles.main}>
         <h1 onClick={handleCreatePost}>記事投稿テスト</h1>
+        {posts.map((post) => (
+          <div key={post.id}>{post.title}</div>
+        ))}
       </main>
 
       <footer className={styles.footer}>
