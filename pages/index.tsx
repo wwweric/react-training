@@ -1,58 +1,17 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { createPost, getPosts } from '../firebase/posts';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-  const [cats, setCats] = useState();
   useEffect(() => {
     (async () => {
-      const res = await fetch('/api/hello');
-      const data = await res.json();
-      setCats(data.cats);
       const posts = await getPosts();
       console.log(posts);
     })();
   }, []);
-  console.log(cats);
 
-  const array = ['a', 'b', 'c'];
-  // console.log();
-  // array.map((value)=>{
-  //   console.log(value);
-  // });
-
-  const cats_data: {
-    id: number;
-    name: string;
-    sex: 1 | 2;
-  }[] = [
-    {
-      id: 0,
-      name: 'momo',
-      sex: 2,
-    },
-    {
-      id: 1,
-      name: 'tama',
-      sex: 1,
-    },
-    {
-      id: 2,
-      name: 'ben',
-      sex: 1,
-    },
-  ];
-  console.log('catdata', cats_data);
-
-  // const _cats = cats.map((cat) => {
-  //   return {
-  //     ...cat,
-  //     sexText: sexTexts[cat.sex]
-  //   }
-  // })
   const handleCreatePost = async () => {
     const post = await createPost({
       title: 'test',
@@ -70,67 +29,11 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href='https://nextjs.org'>Next.js!</a>
-        </h1>
-
-        {array.map((value, index) => {
-          // console.log(index,value);
-          return (
-            <p key={index}>
-              {value}
-              {index}
-            </p>
-          );
-        })}
-
-        {/* {cats_data.map((cat) => (
-          <p key={cat.id}>{cat.name}{cat.sex}</p>
-        ))} */}
-
         <h1 onClick={handleCreatePost}>記事投稿テスト</h1>
-
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href='https://nextjs.org/docs' className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href='https://nextjs.org/learn' className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href='https://github.com/vercel/next.js/tree/master/examples' className={styles.card}>
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-          </span>
-        </a>
+        <p>フッター</p>
       </footer>
     </div>
   );
