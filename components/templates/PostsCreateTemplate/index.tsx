@@ -1,6 +1,7 @@
 import { createPost } from '../../../firebase/posts';
 import { useState, useRef } from 'react';
 import { Post } from '../../../types/post';
+import { Container, PostArea, Head, InputTitle, InputText, ButtonArea, Button } from './styles';
 
 export const PostCreateTemplate = () => {
   const [createdPost, setCreatedPost] = useState<Post>();
@@ -27,25 +28,25 @@ export const PostCreateTemplate = () => {
   };
 
   return (
-    <>
+    <Container>
       {isLoading && <div>loading...</div>}
-      <div>
-        タイトル
-        <br />
-        <input ref={titleRef} type='text' name='' id='' required />
-      </div>
+      <PostArea>
+        <Head>タイトル：</Head>
+        <InputTitle ref={titleRef} type='text' name='' id='' required />
+      </PostArea>
 
-      <div>
-        本文
-        <br />
-        <textarea ref={bodyRef} required></textarea>
-      </div>
-      <div>
-        画像
+      <PostArea>
+        <Head>本文：</Head>
+        <InputText ref={bodyRef} rows={4} required></InputText>
+      </PostArea>
+      <PostArea>
+        <Head>画像：</Head>
         <input type='file' name='' id='' />
-      </div>
-      <button onClick={hoge}>投稿</button>
-      {createdPost && <div>{createdPost.title}</div>}
-    </>
+      </PostArea>
+      <ButtonArea>
+        <Button onClick={hoge}>投稿</Button>
+      </ButtonArea>
+      {createdPost && <div>{createdPost.title}を投稿しました</div>}
+    </Container>
   );
 };
