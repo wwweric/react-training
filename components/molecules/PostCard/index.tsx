@@ -5,5 +5,10 @@ type Props = {
 };
 
 export const PostCard = ({ post }: Props) => {
-  return <Container>{post.title}</Container>;
+  return (
+    <Container>
+      <div>title：{post.title}</div>
+      <div>本文：{post.body}</div>
+    </Container>
+  );
 };
