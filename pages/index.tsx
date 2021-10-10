@@ -3,14 +3,9 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { createPost, getPosts } from '../firebase/posts';
 import styles from '../styles/Home.module.css';
-import styled from 'styled-components';
 import { PostCard } from '../components/molecules/PostCard';
 
 import { Post } from '../types/post';
-
-const Hoge = styled.div`
-  color: red;
-`;
 
 const Page: NextPage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -44,7 +39,6 @@ const Page: NextPage = () => {
         {posts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
-        <Hoge>ほふぇほふぇ</Hoge>
       </main>
 
       <footer className={styles.footer}>
